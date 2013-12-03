@@ -16,7 +16,7 @@ overlay = canvas.Canvas(overlay_file, pagesize=(8.5 * inch, 11 * inch,))
 last_name = overlay.beginText()
 last_name.setTextOrigin(0.53 * inch, (11 - 1.55) * inch)
 last_name.setFont('Helvetica', 12)
-last_name.textLine('Myers')
+last_name.textOut('Myers')
 
 overlay.drawText(last_name)
 overlay.showPage()
