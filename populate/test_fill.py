@@ -11,12 +11,48 @@ from reportlab.pdfgen import canvas
 FORMS_DIR = os.path.join(os.path.dirname(__file__), 'blank_forms')
 
 
+FORM_605_FIELDS = {
+    'last_name': {
+        'x1': 0.54,
+        'y1': 11 - 0.15 - 1.41,
+        'x2': 2.54,
+        'y2': 11 - 0.15 - 1.6,
+    },
+    'suffix': {
+        'x1': 2.58,
+        'y1': 11 - 0.15 - 1.41,
+        'x2': 3.2,
+        'y2': 11 - 0.15 - 1.6,
+    },
+    'first_name': {
+        'x1': 3.3,
+        'y1': 11 - 0.15 - 1.41,
+        'x2': 4.97,
+        'y2': 11 - 0.15 - 1.6,
+    },
+    'middle_initial': {
+        'x1': 5.1,
+        'y1': 11 - 0.15 - 1.41,
+        'x2': 5.39,
+        'y2': 11 - 0.15 - 1.6,
+    },
+    'current_call_sign': {
+        'x1': 5.53,
+        'y1': 11 - 0.15 - 1.41,
+        'x2': 7.94,
+        'y2': 11 - 0.15 - 1.6,
+    },
+}
+
+
 def fill_out_front(last_name_string):
     overlay_file = io.BytesIO()
     overlay = canvas.Canvas(overlay_file, pagesize=(8.5 * inch, 11 * inch,))
 
     last_name = overlay.beginText()
-    last_name.setTextOrigin(0.53 * inch, (11 - 1.55) * inch)
+    last_name.setTextOrigin(
+        FORM_605_FIELDS['last_name']['x1'] * inch,
+        FORM_605_FIELDS['last_name']['y1'] * inch)
     last_name.setFont('Helvetica', 12)
     last_name.textOut(last_name_string)
 
