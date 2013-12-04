@@ -57,18 +57,24 @@ FORM_605_FIELDS = {
 }
 
 
-def fill_out_front(last_name_string):
+def fill_field(canvas, coords, contents):
+    text_obj = canvas.beginText()
+    text_obj.setTextOrigin(coords['x1'] * inch, coords['y1'] * inch)
+    text_obj.setFont('Helvetica', 12)
+    text_obj.textOut(contents)
+
+    # TODO: Ensure the text fits within the given bounds.
+
+    canvas.drawText(text_obj)
+
+
+def fill_out_front(params):
     overlay_file = io.BytesIO()
     overlay = canvas.Canvas(overlay_file, pagesize=(8.5 * inch, 11 * inch,))
 
-    last_name = overlay.beginText()
-    last_name.setTextOrigin(
-        FORM_605_FIELDS['last_name']['x1'] * inch,
-        FORM_605_FIELDS['last_name']['y1'] * inch)
-    last_name.setFont('Helvetica', 12)
-    last_name.textOut(last_name_string)
+    for field_name, field_contents in params.iteritems():
+        fill_field(overlay, FORM_605_FIELDS[field_name], field_contents)
 
-    overlay.drawText(last_name)
     overlay.showPage()
     overlay.save()
 
@@ -96,4 +102,7 @@ def fill_out_front(last_name_string):
 
 
 if __name__ == '__main__':
-    fill_out_front(sys.argv[1])
+    fill_out_front({
+        'last_name': sys.argv[1],
+        'first_name': sys.argv[2],
+    })
