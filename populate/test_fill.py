@@ -23,6 +23,12 @@ FORM_605_FIELDS = {
     'current_call_sign': Bounds(n=9.44, e=7.94, s=9.25, w=5.53),
     'mailing_address': Bounds(n=9.09, e=5.39, s=8.9, w=0.54),
     'ssn_or_frn': Bounds(n=9.09, e=7.94, s=8.9, w=5.53),
+    'city': Bounds(n=8.73, e=2.54, s=8.53, w=0.54),
+    'state': Bounds(n=8.73, e=3.81, s=8.53, w=3.3),
+    'zip': Bounds(n=8.73, e=5.39, s=8.53, w=3.94),
+    'email': Bounds(n=8.73, e=7.94, s=8.53, w=5.53),
+    'phone': Bounds(n=8.37, e=2.54, s=8.16, w=0.54),
+    'fax': Bounds(n=8.37, e=5.39, s=8.16, w=3.3),
 }
 
 
