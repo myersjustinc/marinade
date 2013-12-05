@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from collections import namedtuple
 import io
 import os.path
 import sys
@@ -8,58 +9,26 @@ from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 
+Bounds = namedtuple('Bounds', ('n', 'e', 's', 'w',))
+
+
 FORMS_DIR = os.path.join(os.path.dirname(__file__), 'blank_forms')
 
 
 FORM_605_FIELDS = {
-    'last_name': {
-        'x1': 0.54,
-        'y1': 11 - 0.15 - 1.41,
-        'x2': 2.54,
-        'y2': 11 - 0.15 - 1.6,
-    },
-    'suffix': {
-        'x1': 2.58,
-        'y1': 11 - 0.15 - 1.41,
-        'x2': 3.2,
-        'y2': 11 - 0.15 - 1.6,
-    },
-    'first_name': {
-        'x1': 3.3,
-        'y1': 11 - 0.15 - 1.41,
-        'x2': 4.97,
-        'y2': 11 - 0.15 - 1.6,
-    },
-    'middle_initial': {
-        'x1': 5.1,
-        'y1': 11 - 0.15 - 1.41,
-        'x2': 5.39,
-        'y2': 11 - 0.15 - 1.6,
-    },
-    'current_call_sign': {
-        'x1': 5.53,
-        'y1': 11 - 0.15 - 1.41,
-        'x2': 7.94,
-        'y2': 11 - 0.15 - 1.6,
-    },
-    'mailing_address': {
-        'x1': 0.54,
-        'y1': 11 - 0.15 - 1.76,
-        'x2': 5.39,
-        'y2': 11 - 0.15 - 1.95,
-    },
-    'ssn_or_frn': {
-        'x1': 5.53,
-        'y1': 11 - 0.15 - 1.76,
-        'x2': 7.94,
-        'y2': 11 - 0.15 - 1.95,
-    },
+    'last_name': Bounds(n=9.44, e=2.54, s=9.25, w=0.54),
+    'suffix': Bounds(n=9.44, e=3.2, s=9.25, w=2.58),
+    'first_name': Bounds(n=9.44, e=4.97, s=9.25, w=3.3),
+    'middle_initial': Bounds(n=9.44, e=5.39, s=9.25, w=5.1),
+    'current_call_sign': Bounds(n=9.44, e=7.94, s=9.25, w=5.53),
+    'mailing_address': Bounds(n=9.09, e=5.39, s=8.9, w=0.54),
+    'ssn_or_frn': Bounds(n=9.09, e=7.94, s=8.9, w=5.53),
 }
 
 
-def fill_field(canvas, coords, contents):
+def fill_field(canvas, bounds, contents):
     text_obj = canvas.beginText()
-    text_obj.setTextOrigin(coords['x1'] * inch, coords['y1'] * inch)
+    text_obj.setTextOrigin(bounds.w * inch, bounds.n * inch)
     text_obj.setFont('Helvetica', 12)
     text_obj.textOut(contents)
 
