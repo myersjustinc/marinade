@@ -32,8 +32,8 @@ FORM_605_FIELDS = {
 }
 
 
-def fill_field(canvas, bounds, contents):
-    text_obj = canvas.beginText()
+def fill_field(pdf_canvas, bounds, contents):
+    text_obj = pdf_canvas.beginText()
     text_obj.setTextOrigin(bounds.w * inch, bounds.n * inch)
     text_obj.setFont('Helvetica', 12)
     text_obj.textOut(contents)
@@ -43,12 +43,12 @@ def fill_field(canvas, bounds, contents):
     if current_x > bounds.e:
         scale_factor = (bounds.e - bounds.w) / (current_x - bounds.w)
 
-        text_obj = canvas.beginText()
+        text_obj = pdf_canvas.beginText()
         text_obj.setTextOrigin(bounds.w * inch, bounds.n * inch)
         text_obj.setFont('Helvetica', 12 * scale_factor)
         text_obj.textOut(contents)
 
-    canvas.drawText(text_obj)
+    pdf_canvas.drawText(text_obj)
 
 
 def fill_out_front(params):
