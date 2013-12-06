@@ -16,19 +16,19 @@ FORMS_DIR = os.path.join(os.path.dirname(__file__), 'blank_forms')
 
 
 FORM_605_FIELDS = {
-    'last_name': Bounds(n=9.44, e=2.54, s=9.25, w=0.54),
-    'suffix': Bounds(n=9.44, e=3.2, s=9.25, w=2.58),
-    'first_name': Bounds(n=9.44, e=4.97, s=9.25, w=3.3),
-    'middle_initial': Bounds(n=9.44, e=5.39, s=9.25, w=5.1),
-    'current_call_sign': Bounds(n=9.44, e=7.94, s=9.25, w=5.53),
-    'mailing_address': Bounds(n=9.09, e=5.39, s=8.9, w=0.54),
-    'ssn_or_frn': Bounds(n=9.09, e=7.94, s=8.9, w=5.53),
-    'city': Bounds(n=8.73, e=2.54, s=8.53, w=0.54),
-    'state': Bounds(n=8.73, e=3.81, s=8.53, w=3.3),
-    'zip': Bounds(n=8.73, e=5.39, s=8.53, w=3.94),
-    'email': Bounds(n=8.73, e=7.94, s=8.53, w=5.53),
-    'phone': Bounds(n=8.37, e=2.54, s=8.16, w=0.54),
-    'fax': Bounds(n=8.37, e=5.39, s=8.16, w=3.3),
+    'last_name': Bounds(n=9.44, e=2.54, s=9.44, w=0.54),
+    'suffix': Bounds(n=9.44, e=3.2, s=9.44, w=2.58),
+    'first_name': Bounds(n=9.44, e=4.97, s=9.44, w=3.3),
+    'middle_initial': Bounds(n=9.44, e=5.39, s=9.44, w=5.1),
+    'current_call_sign': Bounds(n=9.44, e=7.94, s=9.44, w=5.53),
+    'mailing_address': Bounds(n=9.05, e=5.39, s=8.05, w=0.54),
+    'ssn_or_frn': Bounds(n=9.05, e=7.94, s=8.05, w=5.53),
+    'city': Bounds(n=8.73, e=2.54, s=8.73, w=0.54),
+    'state': Bounds(n=8.73, e=3.81, s=8.73, w=3.3),
+    'zip': Bounds(n=8.73, e=5.39, s=8.73, w=3.94),
+    'email': Bounds(n=8.73, e=7.94, s=8.73, w=5.53),
+    'phone': Bounds(n=8.32, e=2.54, s=8.32, w=0.54),
+    'fax': Bounds(n=8.32, e=5.39, s=8.32, w=3.3),
 }
 
 
@@ -38,7 +38,15 @@ def fill_field(canvas, bounds, contents):
     text_obj.setFont('Helvetica', 12)
     text_obj.textOut(contents)
 
-    # TODO: Ensure the text fits within the given bounds.
+    # If we're too wide, scale the font size in order to make everything fit.
+    current_x = text_obj.getX() / inch
+    if current_x > bounds.e:
+        scale_factor = (bounds.e - bounds.w) / (current_x - bounds.w)
+
+        text_obj = canvas.beginText()
+        text_obj.setTextOrigin(bounds.w * inch, bounds.n * inch)
+        text_obj.setFont('Helvetica', 12 * scale_factor)
+        text_obj.textOut(contents)
 
     canvas.drawText(text_obj)
 
