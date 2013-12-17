@@ -39,7 +39,20 @@ FORM_605_FIELDS = {
     'exam_date': Bounds(n=3.39, e=7.94, s=3.39, w=5.38),
     'exam_location': Bounds(n=3.00, e=7.94, s=3.00, w=5.38),
     'vec': Bounds(n=2.65, e=7.94, s=2.65, w=5.38),
-    'vec_receipt': Bounds(n=2.24, e=7.94, s=2.24, w=5.38),
+    'applicant_type': {
+        'individual': Bounds(n=8.11, e=1.51, s=7.99, w=1.33),
+        'amateur_club': Bounds(n=8.11, e=2.49, s=7.99, w=2.31),
+        'military_recreation': Bounds(n=8.11, e=3.48, s=7.99, w=3.30),
+        'races': Bounds(n=8.11, e=4.54, s=7.99, w=4.36),
+    },
+    'application_type': {
+        'new_examination': Bounds(n=7.52, e=0.75, s=7.34, w=0.57),
+        'upgrade_examination': Bounds(n=7.92, e=0.75, s=7.74, w=0.57),
+        'name_change': Bounds(n=6.88, e=0.75, s=6.70, w=0.57),
+        'address_change': Bounds(n=7.52, e=4.74, s=7.34, w=4.56),
+        'call_sign_change': Bounds(n=7.20, e=4.74, s=7.02, w=4.56),
+        'license_renewal': Bounds(n=6.55, e=4.74, s=6.37, w=4.56),
+    },
 }
 
 
@@ -81,7 +94,30 @@ def fill_out_front(params):
     overlay = canvas.Canvas(overlay_file, pagesize=(8.5 * inch, 11 * inch,))
 
     for field_name, field_contents in params.iteritems():
-        fill_field(overlay, FORM_605_FIELDS[field_name], field_contents)
+        field_spec = FORM_605_FIELDS.get(field_name, None)
+        if field_spec is None:
+            # Ignore the nonexistent field.
+            continue
+
+        if isinstance(field_spec, Bounds):
+            fill_field(overlay, field_spec, field_contents)
+        else:
+            # Assume it's a checkbox specification.
+            possible_values = field_spec.keys()
+            values_to_check = []
+
+            if isinstance(field_contents, basestring):
+                # Fill in the specified checkbox.
+                if field_contents in possible_values:
+                    values_to_check.append(field_contents)
+            else:
+                values_to_check.extend([i for i in field_contents
+                    if i in possible_values])
+
+            # Fill in each checkbox required.
+            for checkbox_value in values_to_check:
+                add_x_mark(overlay, field_spec[checkbox_value])
+
 
     overlay.showPage()
     overlay.save()
@@ -113,4 +149,5 @@ if __name__ == '__main__':
     fill_out_front({
         'last_name': sys.argv[1],
         'first_name': sys.argv[2],
+        'applicant_type': 'individual',
     })
