@@ -138,6 +138,7 @@ def fill_out_front(params):
       form_605_page.mergePage(overlay_page)
       completed.addPage(form_605_page)
 
+    completed.addPage(form_605.getPage(1))
     completed.write(completed_file)
 
     completed_file.close()
