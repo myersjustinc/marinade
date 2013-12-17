@@ -40,18 +40,18 @@ FORM_605_FIELDS = {
     'exam_location': Bounds(n=3.00, e=7.94, s=3.00, w=5.38),
     'vec': Bounds(n=2.65, e=7.94, s=2.65, w=5.38),
     'applicant_type': {
-        'individual': Bounds(n=8.11, e=1.51, s=7.99, w=1.33),
-        'amateur_club': Bounds(n=8.11, e=2.49, s=7.99, w=2.31),
-        'military_recreation': Bounds(n=8.11, e=3.48, s=7.99, w=3.30),
-        'races': Bounds(n=8.11, e=4.54, s=7.99, w=4.36),
+        'individual': Bounds(n=8.17, e=1.51, s=7.99, w=1.33),
+        'amateur_club': Bounds(n=8.17, e=2.49, s=7.99, w=2.31),
+        'military_recreation': Bounds(n=8.17, e=3.48, s=7.99, w=3.30),
+        'races': Bounds(n=8.17, e=4.54, s=7.99, w=4.36),
     },
     'application_type': {
-        'new_examination': Bounds(n=7.52, e=0.75, s=7.34, w=0.57),
-        'upgrade_examination': Bounds(n=7.92, e=0.75, s=7.74, w=0.57),
-        'name_change': Bounds(n=6.88, e=0.75, s=6.70, w=0.57),
-        'address_change': Bounds(n=7.52, e=4.74, s=7.34, w=4.56),
-        'call_sign_change': Bounds(n=7.20, e=4.74, s=7.02, w=4.56),
-        'license_renewal': Bounds(n=6.55, e=4.74, s=6.37, w=4.56),
+        'new_examination': Bounds(n=7.58, e=0.75, s=7.34, w=0.57),
+        'upgrade_examination': Bounds(n=7.98, e=0.75, s=7.74, w=0.57),
+        'name_change': Bounds(n=6.94, e=0.75, s=6.70, w=0.57),
+        'address_change': Bounds(n=7.58, e=4.74, s=7.34, w=4.56),
+        'call_sign_change': Bounds(n=7.26, e=4.74, s=7.02, w=4.56),
+        'license_renewal': Bounds(n=6.61, e=4.74, s=6.37, w=4.56),
     },
 }
 
