@@ -5,6 +5,7 @@ import os.path
 import sys
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from reportlab.lib.colors import black
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
@@ -59,6 +60,20 @@ def fill_field(pdf_canvas, bounds, contents):
         text_obj.textOut(contents)
 
     pdf_canvas.drawText(text_obj)
+
+
+def add_x_mark(pdf_canvas, bounds):
+    path_obj = pdf_canvas.beginPath()
+
+    pdf_canvas.setStrokeColor(black)
+    pdf_canvas.setLineWidth(3)
+
+    path_obj.moveTo(bounds.w * inch, bounds.n * inch)
+    path_obj.lineTo(bounds.e * inch, bounds.s * inch)
+    path_obj.moveTo(bounds.e * inch, bounds.n * inch)
+    path_obj.lineTo(bounds.w * inch, bounds.s * inch)
+
+    pdf_canvas.drawPath(path_obj)
 
 
 def fill_out_front(params):
