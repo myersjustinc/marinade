@@ -29,6 +29,16 @@ FORM_605_FIELDS = {
     'email': Bounds(n=8.73, e=7.94, s=8.73, w=5.53),
     'phone': Bounds(n=8.32, e=2.54, s=8.32, w=0.54),
     'fax': Bounds(n=8.32, e=5.39, s=8.32, w=3.3),
+    'club_name': Bounds(n=8.32, e=7.94, s=8.32, w=5.53),
+    'club_call_sign': Bounds(n=7.93, e=7.94, s=7.93, w=5.53),
+    'pending_app_purpose': Bounds(n=5.79, e=5.75, s=5.79, w=3.44),
+    'former_last_name': Bounds(n=6.35, e=2.86, s=6.35, w=1.87),
+    'former_first_name': Bounds(n=6.35, e=3.59, s=6.35, w=2.97),
+    'former_middle_initial': Bounds(n=6.35, e=4.11, s=6.35, w=3.65),
+    'exam_date': Bounds(n=3.39, e=7.94, s=3.39, w=5.38),
+    'exam_location': Bounds(n=3.00, e=7.94, s=3.00, w=5.38),
+    'vec': Bounds(n=2.65, e=7.94, s=2.65, w=5.38),
+    'vec_receipt': Bounds(n=2.24, e=7.94, s=2.24, w=5.38),
 }
 
 
