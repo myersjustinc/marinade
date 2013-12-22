@@ -96,7 +96,10 @@ def fill_out_form(blank_pdf_path, settings, contents):
       blank_pdf_page.mergePage(overlay_page)
       completed.addPage(blank_pdf_page)
 
-    completed.addPage(blank_pdf.getPage(1))
+    for page_num in xrange(1, blank_pdf.getNumPages()):
+        blank_pdf_page = blank_pdf.getPage(page_num)
+        completed.addPage(blank_pdf_page)
+
     completed.write(completed_file)
 
     overlay_file.close()
