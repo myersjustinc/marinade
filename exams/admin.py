@@ -15,7 +15,7 @@ class ExamSessionAdmin(admin.ModelAdmin):
             'fields': ('date', 'registration_starts', 'testing_starts',),
         }),
         ('Publicity', {
-            'fields': ('published', 'external_url',),
+            'fields': ('published', 'meetup_url', 'arrl_url',),
         }),
     )
     list_display = ('published', 'date', 'location', 'testing_starts',)
