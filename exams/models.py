@@ -24,6 +24,17 @@ class Location(models.Model):
 class ExamSession(models.Model):
     location = models.ForeignKey(
         Location, help_text='Where will this exam be held?')
+    fee = models.DecimalField(
+        blank=True,
+        null=True,
+        max_digits=5,
+        decimal_places=5,
+        help_text='If a fee will be charged for this exam, list the amount '
+            'here.')
+    # TODO: Make description accept Markdown or something similar.
+    description = models.TextField(
+        blank=True,
+        help_text='Anything else a prospective examinee should know?')
 
     date = models.DateField(help_text='On what date will this exam be held?')
     registration_starts = models.TimeField(
@@ -36,10 +47,14 @@ class ExamSession(models.Model):
         default=False,
         help_text='Should visitors be able to see that this exam is '
             'scheduled?')
-    external_url = models.URLField(
+    meetup_url = models.URLField(
         blank=True,
-        help_text='If another team-affiliated website (e.g., Meetup) lists '
-            'this exam session, include its URL here.')
+        help_text='If this exam session is listed on Meetup or another '
+            'general-purpose event listing site, include its URL here.')
+    arrl_url = models.URLField(
+        blank=True,
+        help_text='If this exam session is listed in the ARRL\'s exam '
+            'schedule, include its URL here.')
 
 
     def __unicode__(self):
