@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import ModelForm
 from localflavor.us.forms import USZipCodeField
 
-from exams.models import ExamSession, Location
+from exams.models import ExamSession, Location, Registrant
 
 
 class ExamSessionAdmin(admin.ModelAdmin):
@@ -49,5 +49,34 @@ class LocationAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
+class RegistrantForm(ModelForm):
+    zip_code = USZipCodeField()
+
+    class Meta:
+        model = Registrant
+
+
+class RegistrantAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Name', {
+            'fields': ('first_name', 'middle_initial', 'last_name',),
+        }),
+        ('Address', {
+            'fields': ('street_address', 'city', 'state', 'zip_code',),
+        }),
+        ('Other contact information', {
+            'fields': ('phone_number', 'fax_number', 'email_address',),
+        }),
+        ('FCC information', {
+            'fields': ('call_sign', 'frn',),
+        }),
+    )
+    form = RegistrantForm
+    list_display = ('call_sign', 'last_name', 'first_name', 'city', 'state',)
+    list_filter = ('state',)
+    ordering = ('last_name', 'first_name', 'middle_initial',)
+
+
 admin.site.register(ExamSession, ExamSessionAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Registrant, RegistrantAdmin)

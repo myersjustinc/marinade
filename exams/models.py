@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import date
-from localflavor.us.models import USPostalCodeField
+from localflavor.us.models import PhoneNumberField, USPostalCodeField
 
 
 class Location(models.Model):
@@ -61,3 +61,41 @@ class ExamSession(models.Model):
         return u'{date_formatted}, {location_name}'.format(
             location_name=self.location.name,
             date_formatted=date(self.date, 'N j, Y'))
+
+
+class Registrant(models.Model):
+    first_name = models.CharField(max_length=100)
+    middle_initial = models.CharField(max_length=1, blank=True)
+    last_name = models.CharField(max_length=100)
+
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = USPostalCodeField()
+    zip_code = models.CharField(max_length=10)
+
+    phone_number = PhoneNumberField(blank=True)
+    fax_number = PhoneNumberField(blank=True)
+    email_address = models.EmailField(max_length=255, blank=True)
+
+    call_sign = models.CharField(
+        max_length=6,
+        blank=True,
+        help_text='If this person has an existing amateur radio call sign, '
+            'list it here.')
+    frn = models.CharField(
+        'FCC registration number',
+        max_length=10,
+        blank=True,
+        help_text='If this person has an FCC registration number, list it '
+            'here.')
+
+
+    def __unicode__(self):
+        if self.middle_initial:
+            return u'{first_name} {middle_initial}. {last_name}'.format(
+                first_name=self.first_name,
+                middle_initial=self.middle_initial,
+                last_name=self.last_name)
+        return u'{first_name} {last_name}'.format(
+            first_name=self.first_name,
+            last_name=self.last_name)
