@@ -56,6 +56,8 @@ class ExamSession(models.Model):
         help_text='If this exam session is listed in the ARRL\'s exam '
             'schedule, include its URL here.')
 
+    registrants = models.ManyToManyField('Registrant', through='Registration')
+
 
     def __unicode__(self):
         return u'{date_formatted}, {location_name}'.format(
@@ -77,11 +79,6 @@ class Registrant(models.Model):
     fax_number = PhoneNumberField(blank=True)
     email_address = models.EmailField(max_length=255, blank=True)
 
-    call_sign = models.CharField(
-        max_length=6,
-        blank=True,
-        help_text='If this person has an existing amateur radio call sign, '
-            'list it here.')
     frn = models.CharField(
         'FCC registration number',
         max_length=10,
@@ -99,3 +96,51 @@ class Registrant(models.Model):
         return u'{first_name} {last_name}'.format(
             first_name=self.first_name,
             last_name=self.last_name)
+
+
+class Registration(models.Model):
+    registrant = models.ForeignKey(Registrant)
+    exam_session = models.ForeignKey(ExamSession)
+
+    call_sign = models.CharField(
+        max_length=6,
+        blank=True,
+        help_text='If this person has an existing amateur radio call sign as '
+            'of the date of the exam session, list it here.')
+
+    new_examination = models.BooleanField(
+        default=False,
+        help_text='If this person is seeking examination for a new amateur '
+            'radio license, indicate that here.')
+    upgrade_examination = models.BooleanField(
+        default=False,
+        help_text='If this person is seeking examination for an upgrade of '
+            'an existing amateur radio license, indicate that here.')
+
+    name_change = models.BooleanField(
+        default=False,
+        help_text='If this person wants to change the name on his or her '
+            'license, indicate that here and include the person\'s former '
+            'name.')
+    former_first_name = models.CharField(max_length=100, blank=True)
+    former_middle_initial = models.CharField(max_length=1, blank=True)
+    former_last_name = models.CharField(max_length=100, blank=True)
+
+    address_change = models.BooleanField(
+        default=False,
+        help_text='If this person wants to change the address on his or her '
+            'license, indicate that here.')
+    call_sign_change = models.BooleanField(
+        default=False,
+        help_text='If this person wants a new systematically assigned call '
+            'sign, indicate that here.')
+    license_renewal = models.BooleanField(
+        default=False,
+        help_text='If this person wants to renew his or her license, indicate '
+            'that here.')
+
+
+    def __unicode__(self):
+        return u'{registrant}, {exam_session}'.format(
+            registrant=self.registrant.__unicode__(),
+            exam_session=self.exam_session.__unicode__())

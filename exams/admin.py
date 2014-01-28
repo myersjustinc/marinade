@@ -2,7 +2,28 @@ from django.contrib import admin
 from django.forms import ModelForm
 from localflavor.us.forms import USZipCodeField
 
-from exams.models import ExamSession, Location, Registrant
+from exams.models import ExamSession, Location, Registrant, Registration
+
+
+class RegistrationInline(admin.StackedInline):
+    extra = 1
+    fieldsets = (
+        ('Registrant information', {
+            'fields': ('registrant', 'call_sign',),
+        }),
+        ('Examination', {
+            'fields': ('new_examination', 'upgrade_examination',),
+        }),
+        ('Name change', {
+            'fields': ('name_change', 'former_first_name',
+                'former_middle_initial', 'former_last_name',),
+        }),
+        ('Other changes', {
+            'fields': ('address_change', 'call_sign_change',
+                'license_renewal'),
+        }),
+    )
+    model = Registration
 
 
 class ExamSessionAdmin(admin.ModelAdmin):
@@ -18,6 +39,7 @@ class ExamSessionAdmin(admin.ModelAdmin):
             'fields': ('published', 'meetup_url', 'arrl_url',),
         }),
     )
+    inlines = (RegistrationInline,)
     list_display = ('published', 'date', 'location', 'testing_starts',)
     list_display_links = ('date',)
     list_filter = ('location', 'published',)
@@ -68,11 +90,11 @@ class RegistrantAdmin(admin.ModelAdmin):
             'fields': ('phone_number', 'fax_number', 'email_address',),
         }),
         ('FCC information', {
-            'fields': ('call_sign', 'frn',),
+            'fields': ('frn',),
         }),
     )
     form = RegistrantForm
-    list_display = ('call_sign', 'last_name', 'first_name', 'city', 'state',)
+    list_display = ('last_name', 'first_name', 'city', 'state',)
     list_filter = ('state',)
     ordering = ('last_name', 'first_name', 'middle_initial',)
 
