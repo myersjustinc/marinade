@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.forms import ModelForm
 from localflavor.us.forms import USZipCodeField
 
-from exams.models import ExamSession, Location, Registrant, Registration
+from exams.models import (Examination, ExamSession, Location, Registrant,
+    Registration)
 
 
 class RegistrationInline(admin.StackedInline):
@@ -102,3 +103,4 @@ class RegistrantAdmin(admin.ModelAdmin):
 admin.site.register(ExamSession, ExamSessionAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Registrant, RegistrantAdmin)
+admin.site.register(Examination)

@@ -144,3 +144,45 @@ class Registration(models.Model):
         return u'{registrant}, {exam_session}'.format(
             registrant=self.registrant.__unicode__(),
             exam_session=self.exam_session.__unicode__())
+
+
+class Examination(models.Model):
+    ELEMENT_CHOICES = (
+        (2, 'Element 2: Technician',),
+        (3, 'Element 3: General',),
+        (4, 'Element 4: Amateur Extra',),
+    )
+    ELEMENT_PASSING_SCORES = {
+        2: 26,
+        3: 26,
+        4: 37,
+    }
+
+    registration = models.ForeignKey(Registration)
+
+    exam_element = models.IntegerField(
+        choices=ELEMENT_CHOICES,
+        help_text='What exam element is being attempted?')
+    exam_form = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='If the examination being administered has an ID number of '
+            'some sort, list it here.')
+    score = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text='If this exam has been administered, what was the '
+            'registrant\'s score?')
+
+
+    def __unicode__(self):
+        return u'{registrant}, {exam_element}'.format(
+            registrant=self.registration.registrant.__unicode__(),
+            exam_element=self.get_exam_element_display())
+
+
+    def exam_passed(self):
+        if not self.score:
+            return False
+
+        return self.score >= ELEMENT_PASSING_SCORES[self.exam_element]
