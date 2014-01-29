@@ -47,4 +47,5 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
