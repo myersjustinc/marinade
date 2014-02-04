@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 
-from exams.views import ExamSessionDetailView, ExamSessionListView
+from exams.views import (ExamSessionDetailView, ExamSessionListView,
+    LocationListView)
 
 
 urlpatterns = patterns('',
@@ -8,6 +9,10 @@ urlpatterns = patterns('',
         r'^$',
         ExamSessionListView.as_view(),
         name='exams-sessions-list-all'),
+    url(
+        r'^locations/$',
+        LocationListView.as_view(),
+        name='exams-locations-list-all'),
     url(
         r'^(?P<location_slug>[-\w]+)/$',
         ExamSessionListView.as_view(),

@@ -4,6 +4,20 @@
 
 {% block content %}
   <h1>Exam sessions{% if location %} at {{ location.name }}{% endif %}</h1>
+
+  {% if location %}
+  <div class="vcard">
+    <h2>Getting to <span class="fn">{{ location.name }}</span></h2>
+    <div class="adr">
+      <p class="street-address">{{ location.street_address }}</p>
+      <p><span class="locality">{{ location.city }}</span>, <abbr class="region" title="{{ location.get_state_display }}">{{ location.state }}</abbr> <span class="postal-code">{{ location.zip_code }}</span></p>
+    </div>
+    <div class="note directions">
+      {{ location.directions|linebreaks }}
+    </div>
+  </div>
+  {% endif %}
+
   {% if exam_sessions %}
   <ul>
     {% for exam_session in exam_sessions %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &mdash; Exam locations{% endblock title %}
+
+{% block content %}
+  <h1>Exam locations</h1>
+  {% if locations %}
+    {% regroup locations by get_state_display as states %}
+    <ul>
+    {% for state in states %}
+      <li>
+        <h2>{{ state.grouper }}</h2>
+        <ul>
+          {% for location in state.list %}
+          <li class="vcard">
+            <h3 class="fn"><a href="{{ location.get_absolute_url }}">{{ location }}</a></h3>
+            <p class="adr">
+              <span class="locality">{{ location.city }}</span>, <abbr class="region" title="{{ location.get_state_display }}">{{ location.state }}</abbr>
+            </p>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No locations to list!</p>
+  {% endif %}
+{% endblock content %}

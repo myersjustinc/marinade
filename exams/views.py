@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import methodcaller
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
@@ -6,6 +7,16 @@ from django.shortcuts import get_object_or_404, render
 from vanilla import DetailView, ListView
 
 from exams.models import ExamSession, Location
+
+
+class LocationListView(ListView):
+    context_object_name = 'locations'
+    model = Location
+    template_name = 'location_list.html'
+
+
+    def get_queryset(self):
+        return Location.objects.order_by('name')
 
 
 class ExamSessionListView(ListView):
