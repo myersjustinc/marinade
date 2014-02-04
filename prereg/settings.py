@@ -40,6 +40,10 @@ DATABASES = {
     'default': dj_database_url.config(),
 }
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/New_York'
 

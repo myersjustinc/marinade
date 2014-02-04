@@ -1,9 +1,7 @@
-<!doctype html>
-<html>
-  <head>
-    <title>{{ exam_session }}</title>
-  </head>
-  <body>
-    <h1>{{ exam_session }}</h1>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &mdash; {{ exam_session }}{% endblock title %}
+
+{% block content %}
+  <h1>{{ exam_session }}</h1>
+{% endblock content %}

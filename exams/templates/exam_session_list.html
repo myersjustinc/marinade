@@ -1,18 +1,16 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Exam sessions</title>
-  </head>
-  <body>
-    <h1>Exam sessions</h1>
-    {% if exam_sessions %}
-    <ul>
-      {% for exam_session in exam_sessions %}
-      <li><a href="{{ exam_session.get_absolute_url }}">{{ exam_session }}</a></li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No sessions to list!</p>
-    {% endif %}
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &mdash; Exam sessions{% endblock title %}
+
+{% block content %}
+  <h1>Exam sessions</h1>
+  {% if exam_sessions %}
+  <ul>
+    {% for exam_session in exam_sessions %}
+    <li><a href="{{ exam_session.get_absolute_url }}">{{ exam_session }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No sessions to list!</p>
+  {% endif %}
+{% endblock content %}
