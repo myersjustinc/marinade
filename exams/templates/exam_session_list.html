@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ block.super }} &mdash; Exam sessions{% endblock title %}
+{% block title %}{{ block.super }} &mdash; Exam sessions{% if location %} &mdash; {{ location.name }}{% endif %}{% endblock title %}
 
 {% block content %}
-  <h1>Exam sessions</h1>
+  <h1>Exam sessions{% if location %} at {{ location.name }}{% endif %}</h1>
   {% if exam_sessions %}
   <ul>
     {% for exam_session in exam_sessions %}
