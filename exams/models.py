@@ -16,6 +16,9 @@ class Location(models.Model):
         help_text='Use this field to record any useful directions or tips '
             'to help a visitor reach the correct place.')
 
+    slug = models.SlugField(
+        help_text='Used in URLs. Filled out automatically.')
+
 
     def __unicode__(self):
         return self.name

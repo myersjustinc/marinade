@@ -65,11 +65,18 @@ class LocationAdmin(admin.ModelAdmin):
         ('Other', {
             'fields': ('directions',),
         }),
+        ('Nothing to see here, move along', {
+            'classes': ('collapse',),
+            'fields': ('slug',),
+        }),
     )
     form = LocationForm
     list_display = ('name', 'city', 'state',)
     list_filter = ('state',)
     ordering = ('name',)
+    prepopulated_fields = {
+        'slug': ('name',),
+    }
 
 
 class RegistrantForm(ModelForm):

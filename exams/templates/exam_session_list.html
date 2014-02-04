@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exam sessions</title>
+  </head>
+  <body>
+    <h1>Exam sessions</h1>
+    {% if exam_sessions %}
+    <ul>
+      {% for exam_session in exam_sessions %}
+      <li>{{ exam_session }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No sessions to list!</p>
+    {% endif %}
+  </body>
+</html>
