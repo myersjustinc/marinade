@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
-from vanilla import ListView
+from vanilla import DetailView, ListView
 
 from exams.models import ExamSession, Location
 
@@ -14,6 +14,7 @@ class ExamSessionListView(ListView):
     paginate_by = 5
     template_name = 'exam_session_list.html'
 
+
     def get_queryset(self):
         today = datetime.now()
 
@@ -23,7 +24,22 @@ class ExamSessionListView(ListView):
 
         location_slug = self.kwargs.get('location_slug', None)
         if location_slug is not None:
-            location = Location.objects.get_object_or_404(slug=location_slug)
+            location = get_object_or_404(Location, slug=location_slug)
             exam_sessions = exam_sessions.filter(location=location)
 
         return exam_sessions
+
+
+class ExamSessionDetailView(DetailView):
+    context_object_name = 'exam_session'
+    model = ExamSession
+    template_name = 'exam_session_detail.html'
+
+
+    def get_object(self):
+        exam_sessions = ExamSession.objects.filter(published=True)
+        location = get_object_or_404(
+            Location, slug=self.kwargs.get('location_slug', None))
+        exam_sessions = exam_sessions.filter(location=location)
+        return get_object_or_404(
+            exam_sessions, pk=self.kwargs.get('session_id', None))

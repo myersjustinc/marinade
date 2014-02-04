@@ -1,5 +1,7 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import date
+
 from localflavor.us.models import PhoneNumberField, USPostalCodeField
 
 
@@ -22,6 +24,12 @@ class Location(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+    def get_absolute_url(self):
+        return reverse('exams-sessions-location', kwargs={
+            'location_slug': self.slug,
+        })
 
 
 class ExamSession(models.Model):
@@ -66,6 +74,13 @@ class ExamSession(models.Model):
         return u'{date_formatted}, {location_name}'.format(
             location_name=self.location.name,
             date_formatted=date(self.date, 'N j, Y'))
+
+
+    def get_absolute_url(self):
+        return reverse('exams-sessions-detail', kwargs={
+            'location_slug': self.location.slug,
+            'session_id': self.pk,
+        })
 
 
 class Registrant(models.Model):

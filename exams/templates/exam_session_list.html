@@ -8,7 +8,7 @@
     {% if exam_sessions %}
     <ul>
       {% for exam_session in exam_sessions %}
-      <li>{{ exam_session }}</li>
+      <li><a href="{{ exam_session.get_absolute_url }}">{{ exam_session }}</a></li>
       {% endfor %}
     </ul>
     {% else %}
