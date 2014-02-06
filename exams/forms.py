@@ -2,8 +2,7 @@ import re
 
 from django.core.validators import EMPTY_VALUES
 from django.forms import ModelForm, ValidationError
-
-from localflavor.us.forms import USZipCodeField
+from django.forms.fields import RegexField
 
 from exams.models import Location, Registrant, Registration
 
@@ -11,16 +10,21 @@ from exams.models import Location, Registrant, Registration
 ZIP_CODE = re.compile(r'^(\d{5})-?(\d{4})?$')
 
 
-class FriendlyZIPCodeField(USZipCodeField):
+class FriendlyZIPCodeField(RegexField):
     """
     Validates input as a U.S. ZIP code.
 
-    Unlike USZipCodeField, this allows the user to omit the hyphen before the
-    optional +4 part of the code and adds it automatically if omitted.
+    Unlike localflavor.us.forms.USZipCodeField, this allows the user to omit
+    the hyphen before the optional +4 part of the code and adds it
+    automatically if omitted.
     """
+    default_error_messages = {
+        'invalid': 'Enter a five-digit ZIP code or a ZIP+4 code.',
+    }
+
 
     def __init__(self, max_length=None, min_length=None, *args, **kwargs):
-        super(USZipCodeField, self).__init__(
+        super(FriendlyZIPCodeField, self).__init__(
             ZIP_CODE, max_length, min_length, *args, **kwargs)
 
 
