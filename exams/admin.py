@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.forms import ModelForm
-from localflavor.us.forms import USZipCodeField
 
+from exams.forms import LocationForm, RegistrantForm
 from exams.models import (Examination, ExamSession, Location, Registrant,
     Registration)
 
@@ -47,13 +46,6 @@ class ExamSessionAdmin(admin.ModelAdmin):
     ordering = ('-date', '-testing_starts',)
 
 
-class LocationForm(ModelForm):
-    zip_code = USZipCodeField()
-
-    class Meta:
-        model = Location
-
-
 class LocationAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -77,13 +69,6 @@ class LocationAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ('name',),
     }
-
-
-class RegistrantForm(ModelForm):
-    zip_code = USZipCodeField()
-
-    class Meta:
-        model = Registrant
 
 
 class RegistrantAdmin(admin.ModelAdmin):
