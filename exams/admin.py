@@ -31,7 +31,7 @@ class ExamSessionAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     fieldsets = (
         (None, {
-            'fields': ('location',),
+            'fields': ('location', 'fee', 'description',),
         }),
         ('Date and time', {
             'fields': ('date', 'registration_starts', 'testing_starts',),
@@ -57,7 +57,7 @@ class LocationForm(ModelForm):
 class LocationAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('name',),
+            'fields': ('name', 'url', 'phone_number',),
         }),
         ('Address', {
             'fields': ('street_address', 'city', 'state', 'zip_code',),

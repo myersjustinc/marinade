@@ -7,21 +7,32 @@
 
   {% if location %}
   <div class="vcard">
-    <h2>Getting to <span class="fn">{{ location.name }}</span></h2>
+    <h2>Getting to {% if location.url %}<a href="{{ location.url }}" class="fn">{% else %}<span class="fn">{% endif %}{{ location.name }}{% if location.url %}</a>{% else %}</span>{% endif %}</h2>
     <div class="adr">
+      <h3>Address</h3>
       <p class="street-address">{{ location.street_address }}</p>
       <p><span class="locality">{{ location.city }}</span>, <abbr class="region" title="{{ location.get_state_display }}">{{ location.state }}</abbr> <span class="postal-code">{{ location.zip_code }}</span></p>
     </div>
+    {% if location.phone_number %}
+    <div>
+      <h3>Phone number</h3>
+      <p class="tel">{{ location.phone_number }}</p>
+    </div>
+    {% endif %}
+    {% if location.directions %}
     <div class="note directions">
+      <h3>Directions</h3>
       {{ location.directions|linebreaks }}
     </div>
+    {% endif %}
   </div>
   {% endif %}
 
+  <h2>Exam sessions</h2>
   {% if exam_sessions %}
   <ul>
     {% for exam_session in exam_sessions %}
-    <li><a href="{{ exam_session.get_absolute_url }}">{{ exam_session }}</a></li>
+    <li><a href="{{ exam_session.get_absolute_url }}">{{ exam_session.date|date:'N j, Y' }}</a>{% if not location %}, <a href="{{ exam_session.location.get_absolute_url }}">{{ exam_session.location.name }}</a>{% endif %}</li>
     {% endfor %}
   </ul>
   {% else %}

@@ -7,6 +7,8 @@ from localflavor.us.models import PhoneNumberField, USPostalCodeField
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
+    url = models.URLField('URL', blank=True)
+    phone_number = PhoneNumberField(blank=True)
 
     street_address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
