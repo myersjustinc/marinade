@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import date
@@ -88,7 +88,12 @@ class ExamSession(models.Model):
 
 
 class Registrant(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        help_text='If this registrant corresponds to a user in the Django '
+            'authentication system, select that user here.')
 
     first_name = models.CharField(max_length=100)
     middle_initial = models.CharField(max_length=1, blank=True)
