@@ -31,9 +31,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'prereg.urls'
+ROOT_URLCONF = 'marinade.urls'
 
-WSGI_APPLICATION = 'prereg.wsgi.application'
+WSGI_APPLICATION = 'marinade.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(),

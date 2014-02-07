@@ -1,1 +1,1 @@
-web: gunicorn prereg.wsgi:application
+web: gunicorn marinade.wsgi:application
