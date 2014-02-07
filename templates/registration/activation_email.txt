@@ -1,0 +1,5 @@
+Hey there! You (or someone who wishes he or she were you) tried to create an account to register for amateur radio licensing exams.
+
+To activate your account and register for an exam session, visit this Web page:
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key=activation_key %}

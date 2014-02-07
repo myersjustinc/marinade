@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &mdash; Register for account{% endblock title %}
+
+{% block content %}
+  <h1>Register for account</h1>
+  <form method="POST" action="{% url 'registration_register' %}">
+    {% csrf_token %}
+    <table>
+      {{ registration_form.as_table }}
+      {{ profile_form.as_table }}
+    </table>
+    <button type="submit">Register</button>
+</form>
+{% endblock content %}

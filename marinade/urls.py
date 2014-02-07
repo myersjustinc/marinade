@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^exams/', include(exams.urls)),
+    url(r'^accounts/', include('marinade.registration_urls')),
 )
