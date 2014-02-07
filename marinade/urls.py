@@ -2,13 +2,14 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 import exams.urls
-from marinade.views import HomeView
+
+from vanilla import TemplateView
 
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^exams/', include(exams.urls)),
 )
