@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import date
@@ -38,6 +39,7 @@ class ExamSession(models.Model):
     location = models.ForeignKey(
         Location, help_text='Where will this exam be held?')
     fee = models.DecimalField(
+        default=0.0,
         blank=True,
         null=True,
         max_digits=5,
@@ -86,6 +88,8 @@ class ExamSession(models.Model):
 
 
 class Registrant(models.Model):
+    user = models.ForeignKey(User)
+
     first_name = models.CharField(max_length=100)
     middle_initial = models.CharField(max_length=1, blank=True)
     last_name = models.CharField(max_length=100)

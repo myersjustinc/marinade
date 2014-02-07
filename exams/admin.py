@@ -73,6 +73,9 @@ class LocationAdmin(admin.ModelAdmin):
 
 class RegistrantAdmin(admin.ModelAdmin):
     fieldsets = (
+        (None, {
+            'fields': ('user',),
+        }),
         ('Name', {
             'fields': ('first_name', 'middle_initial', 'last_name',),
         }),
