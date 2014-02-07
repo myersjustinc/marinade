@@ -18,7 +18,7 @@ class RegistrationView(View):
 
         if self.profile_model:
             self.ProfileForm = modelform_factory(
-                self.profile_model, exclude=('user', 'email',))
+                self.profile_model, exclude=('user', 'email_address',))
         else:
             self.ProfileForm = None
 
@@ -71,7 +71,7 @@ class RegistrationView(View):
         if profile_form:
             profile = profile_form.save(commit=False)
             profile.user = user
-            profile.email = user.email
+            profile.email_address = user.email
             profile.save()
 
         return redirect(self.completed_url)
