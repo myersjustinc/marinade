@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 
 from vanilla import DetailView, ListView
 
-from exams.models import ExamSession, Location
+from .models import ExamSession, Location
 
 
 class LocationListView(ListView):

@@ -4,7 +4,7 @@ from django.core.validators import EMPTY_VALUES
 from django.forms import ModelForm, ValidationError
 from django.forms.fields import RegexField
 
-from exams.models import Location, Registrant, Registration
+from .models import Location
 
 
 ZIP_CODE = re.compile(r'^(\d{5})-?(\d{4})?$')
@@ -49,12 +49,3 @@ class LocationForm(ModelForm):
 
     class Meta:
         model = Location
-
-
-class RegistrantForm(ModelForm):
-    zip_code = FriendlyZIPCodeField()
-
-    class Meta:
-        model = Registrant
-
-

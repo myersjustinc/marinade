@@ -18,7 +18,8 @@ class RegistrationView(View):
 
         if self.profile_model:
             self.ProfileForm = modelform_factory(
-                self.profile_model, exclude=('user', 'email_address',))
+                self.profile_model,
+                exclude=('user', 'email_address', 'exam_sessions',))
         else:
             self.ProfileForm = None
 

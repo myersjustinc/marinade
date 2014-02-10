@@ -9,8 +9,8 @@ from django.views.generic.base import TemplateView
 from registration.backends.default.views import ActivationView
 from registration.backends.default.views import RegistrationView
 
-from exams.models import Registrant
-from prereg.views import RegistrationView
+from .models import Registrant
+from .views import RegistrationView
 
 
 urlpatterns = patterns('',
