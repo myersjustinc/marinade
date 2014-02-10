@@ -23,10 +23,8 @@ class Location(models.Model):
     slug = models.SlugField(
         help_text='Used in URLs. Filled out automatically.')
 
-
     def __unicode__(self):
         return self.name
-
 
     def get_absolute_url(self):
         return reverse('schedule:sessions-location', kwargs={
@@ -70,12 +68,10 @@ class ExamSession(models.Model):
         help_text='If this exam session is listed in the ARRL\'s exam '
             'schedule, include its URL here.')
 
-
     def __unicode__(self):
         return u'{date_formatted}, {location_name}'.format(
             location_name=self.location.name,
             date_formatted=date(self.date, 'N j, Y'))
-
 
     def get_absolute_url(self):
         return reverse('schedule:sessions-detail', kwargs={

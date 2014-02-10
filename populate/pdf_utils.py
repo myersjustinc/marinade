@@ -1,7 +1,6 @@
 from collections import namedtuple
 import io
 import os.path
-import sys
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from reportlab.lib.colors import black
@@ -70,8 +69,8 @@ def fill_out_form(blank_pdf_path, settings, contents):
                 if field_contents in possible_values:
                     values_to_check.append(field_contents)
             else:
-                values_to_check.extend([i for i in field_contents
-                    if i in possible_values])
+                values_to_check.extend([
+                    i for i in field_contents if i in possible_values])
 
             # Fill in each checkbox required.
             for checkbox_value in values_to_check:
@@ -90,11 +89,11 @@ def fill_out_form(blank_pdf_path, settings, contents):
     completed = PdfFileWriter()
 
     for page_num in (0,):
-      blank_pdf_page = blank_pdf.getPage(page_num)
-      overlay_page = overlay.getPage(page_num)
+        blank_pdf_page = blank_pdf.getPage(page_num)
+        overlay_page = overlay.getPage(page_num)
 
-      blank_pdf_page.mergePage(overlay_page)
-      completed.addPage(blank_pdf_page)
+        blank_pdf_page.mergePage(overlay_page)
+        completed.addPage(blank_pdf_page)
 
     for page_num in xrange(1, blank_pdf.getNumPages()):
         blank_pdf_page = blank_pdf.getPage(page_num)

@@ -1,5 +1,4 @@
 import os.path
-from shutil import copyfileobj
 
 from populate.pdf_utils import Bounds, fill_out_form, FORMS_DIR
 

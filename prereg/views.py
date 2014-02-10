@@ -23,14 +23,12 @@ class RegistrationView(View):
         else:
             self.ProfileForm = None
 
-
     def dispatch(self, request, *args, **kwargs):
         # Copies the default django-registration implementation.
         if not self.registration_allowed(request):
             return redirect(self.disallowed_url)
 
         return super(RegistrationView, self).dispatch(request, *args, **kwargs)
-
 
     def get(self, request):
         registration_form = RegistrationForm(prefix='user')
@@ -44,7 +42,6 @@ class RegistrationView(View):
             'profile_form': profile_form,
             'registration_form': registration_form,
         })
-
 
     def post(self, request):
         registration_form = RegistrationForm(
@@ -76,7 +73,6 @@ class RegistrationView(View):
             profile.save()
 
         return redirect(self.completed_url)
-
 
     def registration_allowed(self, request):
         return getattr(settings, 'REGISTRATION_OPEN', True)

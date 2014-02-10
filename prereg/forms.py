@@ -10,4 +10,3 @@ class RegistrantForm(ModelForm):
 
     class Meta:
         model = Registrant
-

@@ -22,11 +22,9 @@ class FriendlyZIPCodeField(RegexField):
         'invalid': 'Enter a five-digit ZIP code or a ZIP+4 code.',
     }
 
-
     def __init__(self, max_length=None, min_length=None, *args, **kwargs):
         super(FriendlyZIPCodeField, self).__init__(
             ZIP_CODE, max_length, min_length, *args, **kwargs)
-
 
     def clean(self, value):
         super(FriendlyZIPCodeField, self).clean(value)

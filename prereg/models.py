@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import models
 
 from localflavor.us.models import PhoneNumberField, USPostalCodeField
@@ -35,7 +34,6 @@ class Registrant(models.Model):
 
     exam_sessions = models.ManyToManyField(
         'schedule.ExamSession', through='Registration')
-
 
     def __unicode__(self):
         if self.middle_initial:
@@ -89,7 +87,6 @@ class Registration(models.Model):
         help_text='If this person wants to renew his or her license, indicate '
             'that here.')
 
-
     def __unicode__(self):
         return u'{registrant}, {exam_session}'.format(
             registrant=self.registrant.__unicode__(),
@@ -124,15 +121,13 @@ class Examination(models.Model):
         help_text='If this exam has been administered, what was the '
             'registrant\'s score?')
 
-
     def __unicode__(self):
         return u'{registrant}, {exam_element}'.format(
             registrant=self.registration.registrant.__unicode__(),
             exam_element=self.get_exam_element_display())
 
-
     def exam_passed(self):
         if not self.score:
             return False
 
-        return self.score >= ELEMENT_PASSING_SCORES[self.exam_element]
+        return self.score >= self.ELEMENT_PASSING_SCORES[self.exam_element]

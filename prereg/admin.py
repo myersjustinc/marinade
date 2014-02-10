@@ -14,12 +14,13 @@ class RegistrationInline(admin.StackedInline):
             'fields': ('new_examination', 'upgrade_examination',),
         }),
         ('Name change', {
-            'fields': ('name_change', 'former_first_name',
-                'former_middle_initial', 'former_last_name',),
+            'fields': (
+                'name_change', 'former_first_name', 'former_middle_initial',
+                'former_last_name',),
         }),
         ('Other changes', {
-            'fields': ('address_change', 'call_sign_change',
-                'license_renewal'),
+            'fields': (
+                'address_change', 'call_sign_change', 'license_renewal'),
         }),
     )
     model = Registration
