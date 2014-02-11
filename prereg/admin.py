@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .forms import RegistrantForm
+from .forms import RegistrantAdminForm
 from .models import Examination, Registrant, Registration
 
 
@@ -44,7 +44,7 @@ class RegistrantAdmin(admin.ModelAdmin):
             'fields': ('frn',),
         }),
     )
-    form = RegistrantForm
+    form = RegistrantAdminForm
     inlines = (RegistrationInline,)
     list_display = ('last_name', 'first_name', 'city', 'state',)
     list_filter = ('state',)

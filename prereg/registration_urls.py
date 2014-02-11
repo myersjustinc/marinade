@@ -24,7 +24,7 @@ urlpatterns = patterns('',
         name='registration_activate'),
     url(
         r'^register/$',
-        RegistrationView.as_view(profile_model=Registrant),
+        RegistrationView.as_view(),
         name='registration_register'),
     url(
         r'^register/complete/$',
