@@ -5,7 +5,7 @@ from localflavor.us.models import PhoneNumberField, USPostalCodeField
 
 
 class Registrant(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
