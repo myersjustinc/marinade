@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} &mdash; Sign up for exam session{% endblock title %}
+
+{% block content %}
+  <h1>Sign up for exam session</h1>
+  <p>You selected the exam session on {{ exam_session.date|date:'N j, Y' }} at {{ exam_session.location }}. If that's not what you meant, <a href="{% url 'schedule:sessions-list-all' %}">go back</a>.</p>
+  <form method="POST" action="{% url 'prereg-signup' exam_session.location.slug exam_session.pk %}">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Sign up</button>
+</form>
+{% endblock content %}

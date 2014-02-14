@@ -4,11 +4,12 @@
 
 {% block content %}
   <h1>Exam session details</h1>
+  <p><a href="{% url 'prereg-signup' location.slug exam_session.pk %}">Sign up for this exam session</a></p>
   <table>
     <tbody>
       <tr>
         <th>Location</th>
-        <td><a href="{{ exam_session.location.get_absolute_url }}">{{ exam_session.location.name }}</a></td>
+        <td><a href="{{ location.get_absolute_url }}">{{ location.name }}</a></td>
       </tr>
       <tr>
         <th>Date</th>
@@ -29,7 +30,7 @@
       <tr>
         <th>Other links</th>
         <td>
-          {% if exam_session.location.url %}<p><a href="{{ exam_session.location.url }}">{{ exam_session.location.name }}</a></p>{% endif %}
+          {% if location.url %}<p><a href="{{ location.url }}">{{ location.name }}</a></p>{% endif %}
           {% if exam_session.meetup_url %}<p><a href="{{ exam_session.meetup_url }}">Meetup</a></p>{% endif %}
           {% if exam_session.arrl_url %}<p><a href="{{ exam_session.arrl_url }}">ARRL session listing</a></p>{% endif %}
         </td>

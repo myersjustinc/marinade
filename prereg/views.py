@@ -1,12 +1,17 @@
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 
 from registration.backends.default.views import RegistrationView as DefaultRegistrationView
 from registration.forms import RegistrationForm
+from vanilla import CreateView
 
 from .forms import RegistrantPublicForm
-from .models import Registrant
+from .models import Registrant, Registration
+from schedule.models import ExamSession
 
 
 class RegistrationView(View):
@@ -59,3 +64,37 @@ class RegistrationView(View):
 
     def registration_allowed(self, request):
         return getattr(settings, 'REGISTRATION_OPEN', True)
+
+
+class SignupView(CreateView):
+    fields = ('call_sign',)
+    model = Registration
+    template_name = 'prereg/signup.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        self.exam_session = get_object_or_404(
+            ExamSession, pk=self.kwargs['session_id'])
+        return super(SignupView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        # Thanks: http://stackoverflow.com/a/21652227
+        form.instance.registrant = self.request.user.registrant
+        form.instance.exam_session = self.exam_session
+
+        if form.cleaned_data['call_sign']:
+            form.instance.upgrade_examination = True
+        else:
+            form.instance.new_examination = True
+
+        messages.add_message(
+            self.request, messages.INFO,
+            'You\'ve successfully signed up for this exam session! We\'ll '
+            'send you a reminder before the session.')
+
+        return super(SignupView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(SignupView, self).get_context_data(**kwargs)
+        context['exam_session'] = self.exam_session
+        return context

@@ -92,6 +92,9 @@ class Registration(models.Model):
             registrant=self.registrant.__unicode__(),
             exam_session=self.exam_session.__unicode__())
 
+    def get_absolute_url(self):
+        return self.exam_session.get_absolute_url()
+
 
 class Examination(models.Model):
     ELEMENT_CHOICES = (
