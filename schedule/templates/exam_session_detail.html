@@ -7,9 +7,8 @@
   {% if exam_session in user_exam_sessions %}
     <p>Already registered!</p>
   {% else %}
+    {# FIXME: Assumes existence of prereg app. Try to avoid that. #}
     <p><a href="{% url 'prereg-signup' location.slug exam_session.pk %}">Sign up for this exam session</a></p>
-  }
-  }
   {% endif %}
   <table>
     <tbody>
