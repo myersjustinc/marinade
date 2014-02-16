@@ -10,7 +10,7 @@ from .models import ExamSession, Location
 class LocationListView(ListView):
     context_object_name = 'locations'
     model = Location
-    template_name = 'location_list.html'
+    template_name = 'schedule/location_list.html'
 
     def get_queryset(self):
         return Location.objects.order_by('name')
@@ -20,7 +20,7 @@ class ExamSessionListView(ListView):
     context_object_name = 'exam_sessions'
     model = ExamSession
     paginate_by = 5
-    template_name = 'exam_session_list.html'
+    template_name = 'schedule/exam_session_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(ExamSessionListView, self).get_context_data(**kwargs)
@@ -48,7 +48,7 @@ class ExamSessionListView(ListView):
 class ExamSessionDetailView(DetailView):
     context_object_name = 'exam_session'
     model = ExamSession
-    template_name = 'exam_session_detail.html'
+    template_name = 'schedule/exam_session_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ExamSessionDetailView, self).get_context_data(**kwargs)
