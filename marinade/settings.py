@@ -63,7 +63,7 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', '') != ''
