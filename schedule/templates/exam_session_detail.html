@@ -4,7 +4,13 @@
 
 {% block content %}
   <h1>Exam session details</h1>
-  <p><a href="{% url 'prereg-signup' location.slug exam_session.pk %}">Sign up for this exam session</a></p>
+  {% if exam_session in user_exam_sessions %}
+    <p>Already registered!</p>
+  {% else %}
+    <p><a href="{% url 'prereg-signup' location.slug exam_session.pk %}">Sign up for this exam session</a></p>
+  }
+  }
+  {% endif %}
   <table>
     <tbody>
       <tr>

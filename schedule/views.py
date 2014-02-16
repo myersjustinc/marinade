@@ -53,6 +53,13 @@ class ExamSessionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ExamSessionDetailView, self).get_context_data(**kwargs)
         context['location'] = self.location
+
+        registrant = getattr(self.request.user, 'registrant', None)
+        if registrant is not None:
+            context['user_exam_sessions'] = registrant.exam_sessions.all()
+        else:
+            context['user_exam_sessions'] = ()
+
         return context
 
     def get_object(self):
