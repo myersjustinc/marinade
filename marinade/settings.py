@@ -64,3 +64,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'django@localhost')
 
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
+
+VE_TEAM_LEADER_NAME = os.environ.get('VE_TEAM_LEADER_NAME', '')
+VE_TEAM_LEADER_EMAIL = os.environ.get('VE_TEAM_LEADER_EMAIL', '')
