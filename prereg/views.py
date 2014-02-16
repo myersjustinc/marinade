@@ -70,11 +70,20 @@ class SignupView(CreateView):
     fields = ('call_sign',)
     model = Registration
     template_name = 'prereg/signup.html'
+    error_template_name = 'prereg/signed_up.html'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         self.exam_session = get_object_or_404(
             ExamSession, pk=self.kwargs['session_id'])
+
+        user_exam_sessions = self.request.user.registrant.exam_sessions.all()
+        if self.exam_session in user_exam_sessions:
+            return render(
+                self.request,
+                self.error_template_name,
+                self.get_context_data())
+
         return super(SignupView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):

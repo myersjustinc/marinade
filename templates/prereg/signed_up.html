@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load prereg_tags %}
+
+{% block title %}{{ block.super }} &mdash; Already signed up{% endblock title %}
+
+{% block content %}
+  <h1>Already signed up</h1>
+  <p>You already are signed up for the exam session on {{ exam_session.date|date:'N j, Y' }} at {{ exam_session.location }}. If you need to change your registration, contact {% ve_contact_info as ve %}<a href="mailto:{{ ve.email }}">{{ ve.name }}</a>.</p>
+{% endblock content %}
