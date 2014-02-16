@@ -4,6 +4,10 @@
     <title>{% block title %}Amateur radio licensing{% endblock title %}</title>
   </head>
   <body>
+    {% if registrant %}
+    <p>Welcome back, {{ registrant.first_name }} {{ registrant.last_name }}!</p>
+    {% endif %}
+
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
