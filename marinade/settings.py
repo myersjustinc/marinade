@@ -7,8 +7,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = os.environ.get('DEBUG', False) not in ('False', False,)
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
