@@ -16,7 +16,8 @@ _ALLOWED_HOSTS = (
     '127.0.0.1',
     '::1',
 )
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', _ALLOWED_HOSTS)
+ALLOWED_HOSTS = os.environ.get(
+    'ALLOWED_HOSTS', ';'.join(_ALLOWED_HOSTS)).split(';')
 
 INSTALLED_APPS = (
     'django.contrib.admin',
