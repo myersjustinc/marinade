@@ -2,10 +2,44 @@
 <html>
   <head>
     <title>{% block title %}Amateur radio licensing{% endblock title %}</title>
+    <style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      .user_info {
+        font-size: 0.8em;
+        text-align: right;
+      }
+
+      .session_details th,
+      .session_details td {
+        padding-right: 0.5em;
+        text-align: left;
+        vertical-align: top;
+      }
+        .session_details td p {
+          margin-top: 0;
+        }
+        .session_details td p:last-child {
+          margin-bottom: 0;
+        }
+
+      .venue_directions,
+      .session_list_container {
+        margin-top: 3em;
+      }
+        .venue_directions > div > h3 {
+          margin-bottom: 0.5em;
+        }
+        .venue_directions > div > p {
+          margin: 0.5em auto;
+        }
+    </style>
   </head>
   <body>
     {% if registrant %}
-    <p>Welcome back, {{ registrant.first_name }} {{ registrant.last_name }}!</p>
+    <p class="user_info">Welcome back, {{ registrant.first_name }} {{ registrant.last_name }}!</p>
     {% endif %}
 
     {% if messages %}

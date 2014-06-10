@@ -10,7 +10,7 @@
     {# FIXME: Assumes existence of prereg app. Try to avoid that. #}
     <p><a href="{% url 'prereg-signup' location.slug exam_session.pk %}">Sign up for this exam session</a></p>
   {% endif %}
-  <table>
+  <table class="session_details">
     <tbody>
       <tr>
         <th>Location</th>
@@ -47,7 +47,7 @@
   <p class="description">{{ exam_session.description|linebreaks }}</p>
   {% endif %}
 
-  <div class="vcard">
+  <div class="vcard venue_directions">
     <h2>Getting to {{ exam_session.location.name }}</h2>
     <div class="adr">
       <h3>Address</h3>
