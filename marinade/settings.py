@@ -74,10 +74,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', '') != ''
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
-EMAIL_PORT = os.environ.get('EMAIL_PORT', 1025)
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST = os.environ.get(
+    'EMAIL_HOST',
+    os.environ.get('POSTMARK_SMTP_SERVER', 'localhost'))
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
+EMAIL_HOST_USER = os.environ.get(
+    'EMAIL_HOST_USER',
+    os.environ.get('POSTMARK_API_KEY', ''))
+EMAIL_HOST_PASSWORD = os.environ.get(
+    'EMAIL_HOST_PASSWORD',
+    os.environ.get('POSTMARK_API_KEY', ''))
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'django@localhost')
 
 ACCOUNT_ACTIVATION_DAYS = 7
